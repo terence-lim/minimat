@@ -1,0 +1,1 @@
+Fatal error: exception Failure("illegal assignment float = int in a = 1")

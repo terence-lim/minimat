@@ -1,0 +1,4 @@
+OCaml program source files to build MiniMat compiler.
+
+Run make to build compiler (requires OCaml, OCamllex and OCamlyacc)
+

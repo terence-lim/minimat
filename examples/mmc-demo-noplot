@@ -1,0 +1,58 @@
+#!/bin/bash
+# mmc-demo-noplot: excludes 
+# To compile example program source files written in Minimat language
+# Compiles {basename}.mm to {basename} executable
+
+# Path to the minimat translator.  Usually "./minimat.native"
+# Try "_build/minimat.native" if ocamlbuild was unable to create a symbolic link.
+MINIMAT="../src/minimat"
+#MINIMAT="_build/minimat.native"
+
+error=0
+globalerror=0
+keep=0
+
+SignalError() {
+    if [ $error -eq 0 ] ; then
+	echo "FAILED"
+	error=1
+    fi
+    echo "  $1"
+}
+
+# Run <args>
+# Report the command, run it, report and exit on any errors
+Run() {
+    echo $* 1>&2
+    eval $* || {
+	SignalError "$1 failed on $*"
+	exit 1
+    }
+}
+
+Check() {
+    error=0
+    b=`echo $1 | sed 's/.*\\///
+                      s/.mm//'`
+# 0. Translate minimat source to llvm ir target
+    Run "cat regression-lib.mm lib.mm " $1 " | " "$MINIMAT" ">" "${b}.ll" &&
+
+# 1. Call llc to compiles to .ll to machine assembly language .s
+    Run "llc -march=\"x86-64\" " ${b}".ll -o " ${b}".s"
+
+# 2. Call gcc to compile .s to object file .o
+    Run "gcc -c -O3 -w $CFLAGS -I. " ${b}".s"
+
+# 3. Call gcc linker to load external libraries
+    Run "gcc " ${b}".o -lm -o " ${b}
+}
+
+if [ $# -lt 1 ]
+then
+    echo "Usage: mmc [.mm file]"
+    exit 1
+fi
+
+Check $1
+
+exit $globalerror

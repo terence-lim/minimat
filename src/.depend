@@ -1,0 +1,10 @@
+ast.cmo :
+ast.cmx :
+codegen.cmo : ast.cmo
+codegen.cmx : ast.cmx
+minimat.cmo : semant.cmo parser.cmi codegen.cmo ast.cmo
+minimat.cmx : semant.cmx parser.cmx codegen.cmx ast.cmx
+parser.cmo : ast.cmo parser.cmi
+parser.cmx : ast.cmx parser.cmi
+semant.cmo : ast.cmo
+semant.cmx : ast.cmx

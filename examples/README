@@ -1,0 +1,10 @@
+Sample program source files written in MiniMat language. Note that the
+support library routines have been collected into different file names in
+this directory, so as to help illustrate the examples presented in the final
+report.
+
+Run "make" to compile programs (requires minimat compiler, and run-time
+MiniMat library source files).
+
+But run "make noplot" instead to compile programs without gnuplot 
+functionality.

@@ -1,0 +1,66 @@
+#!/bin/bash
+# mmc
+# To compile program source file written in Minimat language
+# Compiles {basename}.mm to {basename} executable
+
+# Path to the minimat translator.  Usually "./minimat.native"
+# Try "_build/minimat.native" if ocamlbuild was unable to create a symbolic link.
+ROOT="./"
+MINIMAT=${ROOT}"src/minimat"
+#MINIMAT="_build/minimat.native"
+GNUPLOT="include/gnuplot_i/gnuplot_i.o"
+
+error=0
+globalerror=0
+keep=0
+
+SignalError() {
+    if [ $error -eq 0 ] ; then
+	echo "FAILED"
+	error=1
+    fi
+    echo "  $1"
+}
+
+# Run <args>
+# Report the command, run it, report and exit on any errors
+Run() {
+    echo $* 1>&2
+    eval $* || {
+	SignalError "$1 failed on $*"
+	exit 1
+    }
+}
+
+Check() {
+    error=0
+    b=`echo $1 | sed 's/.*\\///
+                      s/.mm//'`
+# 0. Translate minimat source to llvm ir target
+    Run "cat " ${ROOT}"include/*.mm " $1 " | " "$MINIMAT" ">" "${b}.ll" &&
+
+# 1. Call llc to compile .ll to machine assembly language .s
+    Run "llc -march=\"x86-64\" " ${b}".ll -o " ${b}".s"
+
+# 2. Call gcc to compile .s and link other .o
+    Run "gcc -O3 -I. " ${b}".s " ${ROOT}${GNUPLOT} " -lm -o " ${b}
+}
+
+if [ $# -lt 1 ]
+then
+    echo "Usage: mmc [.mm file]"
+    exit 1
+fi
+
+
+while getopts kdpsh c; do
+    case $c in
+	c) # Keep intermediate files
+	    keep=1
+	    ;;
+    esac
+done
+
+Check $1
+
+exit $globalerror

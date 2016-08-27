@@ -1,0 +1,7 @@
+Run-time library support source files, written in MiniMat language.
+To be passed, along with source program file, to minimat compiler.
+
+
+
+./gnuplot_i subdirectory contains gnuplot C API external library source files.
+To be compiled, with make, to .o file and linked with translated .ll program.

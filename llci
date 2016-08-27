@@ -1,0 +1,28 @@
+#!/bin/sh
+# Run LLC compiler. gcc linker and executable
+
+Run() {
+    echo $* 1>&2
+    eval $*
+}
+
+# Uncomment next line to translate minimat .mm to llvm IR .ll
+#Run "cat ./include/*.mm " $1".mm | " src/minimat  " > " $1".ll"
+
+    basename=`echo $1 | sed 's/.*\\///
+                             s/.mm//'`
+
+
+# 1. Call llc to compile .ll to machine assembly language .s
+Run "llc -march=\"x86-64\" " ${basename}".ll -o " ${basename}".s"
+
+# 2. Call gcc to compile .s to object file .o
+Run "gcc -c -O3 -w $CFLAGS -I. " ${basename}".s"
+
+# 3. Call linker to load gnuplot and lapack libraries
+#Run "gfortran " $1".o include/gnuplot_i.o include/liblapacke.a include/liblapack.a include/librefblas.a  -o " $1
+Run "gcc " ${basename}".o include/gnuplot_i/gnuplot_i.o -lm -o " ${basename}
+
+# 4. Next line runs executable
+Run "./"$1
+Run "/bin/rm -f "${basename}
