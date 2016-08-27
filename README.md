@@ -1,4 +1,4 @@
-The Minimat compiler (for Columbia University COMS4115)
+MINIMAT: Matrix Language in OCaml LLVM (compiler for Columbia University COMS4115)
 
 Coded in OCaml, this implements a superset of Micro C (a highly stripped-down 
 subset of C (ints, bools, and void types, arithmetic, if-else, for, and 
