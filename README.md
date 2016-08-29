@@ -6,8 +6,7 @@ while statements, and user-defined functions) with flexible expressions for
 manipulating matrix and sequence data types, and compiles it into LLVM IR.
 
 It needs the OCaml llvm library, which is most easily installed through opam.
-It also optionally calls external gnuplot routines for plotting graphs: a set
-of public domain gnuplot source files (the gnuplot_i library written by N.Devillard)
-is included in the src subdirectory.
+It also optionally calls external gnuplot routines for plotting graphs (public 
+domain gnuplot_i library written by N.Devillard included in the src subdirectory.
 
 terence.lim@columbia.edu
