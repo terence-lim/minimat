@@ -8,6 +8,6 @@ LLVM IR.
 
 It needs the OCaml llvm library, which is most easily installed through opam.
 It also optionally calls external gnuplot routines for plotting graphs (public 
-domain gnuplot_i library written by N.Devillard included in the src subdirectory.
+domain gnuplot_i library written by N.Devillard included in the src subdirectory).
 
 terence.lim@columbia.edu
