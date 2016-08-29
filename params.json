@@ -1,0 +1,6 @@
+{
+  "name": "Minimat",
+  "tagline": "Matrix language in OCaml LLVM, OCamllex and OCamlyacc",
+  "body": "**MINIMAT: Matrix Language in OCaml LLVM** (compiler for Columbia University COMS4115)\r\n\r\nCoded in OCaml, this implements a superset of Micro C (a highly stripped-down \r\nsubset of C: ints, bools, and void types, arithmetic, if-else, for, and \r\nwhile statements, and user-defined functions) with flexible expressions for\r\nmanipulating matrix and sequence data types, and compiles it into LLVM IR.\r\n\r\nIt needs the OCaml llvm library, which is most easily installed through opam.\r\nIt also optionally calls external gnuplot routines for plotting graphs (public \r\ndomain gnuplot_i library by N.Devillard included in the src subdirectory).\r\n\r\nterence.lim@columbia.edu\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
