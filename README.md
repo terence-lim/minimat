@@ -1,4 +1,4 @@
-MINIMAT: Matrix Language in OCaml LLVM (compiler for Columbia University COMS4115)
+MINIMAT: Extensible Matrix Language in OCaml LLVM (compiler for Columbia University COMS4115)
 
 Coded in OCaml, OCamllex and OCamlyacc, this implements flexible expressions 
 for manipulating matrix and sequence data types with a highly stripped-down
